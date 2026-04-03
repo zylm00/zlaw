@@ -18,6 +18,7 @@ import {
   ExternalLink,
   Trash2,
   Cpu,
+  ShoppingCart,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSettingsStore } from '@/stores/settings';
@@ -275,6 +276,27 @@ export function Sidebar() {
             collapsed={sidebarCollapsed}
           />
         ))}
+
+        {/* 模型购买 — 单独处理，点击直接打开浏览器，不走路由 */}
+        <button
+          data-testid="sidebar-nav-buy"
+          onClick={() => window.electron.openExternal('https://你的网站.com')}
+          className={cn(
+            'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-[14px] font-medium transition-colors',
+            'hover:bg-black/5 dark:hover:bg-white/5 text-foreground/80',
+            sidebarCollapsed && 'justify-center px-0',
+          )}
+        >
+          <div className="flex shrink-0 items-center justify-center text-muted-foreground">
+            <ShoppingCart className="h-[18px] w-[18px]" strokeWidth={2} />
+          </div>
+          {!sidebarCollapsed && (
+            <>
+              <span className="flex-1 text-left overflow-hidden text-ellipsis whitespace-nowrap">模型购买</span>
+              <ExternalLink className="h-3 w-3 shrink-0 ml-auto opacity-50 text-muted-foreground" />
+            </>
+          )}
+        </button>
       </nav>
 
       {/* Session list — below Settings, only when expanded */}
