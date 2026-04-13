@@ -111,8 +111,6 @@ dmg:
 
 # Windows Configuration
 win:
-  # Skip update signature verification: we ship via OSS + GitHub without a
-  # code-signing certificate, so verifying would always fail on the updater.
   verifyUpdateCodeSignature: false
   extraResources:
     - from: resources/bin/win32-${arch}
@@ -122,6 +120,10 @@ win:
   icon: resources/icons/icon.ico
   target:
     - target: nsis
+      arch: x64
+    - target: portable
+      arch: x64
+    - target: zip
       arch: x64
 
 nsis:
